@@ -54,10 +54,11 @@ class ScoreTest extends TestCase
 
 		$mockDb->expects($this->once())
 			->method('realizeQuery')
-			->with("SELECT * FROM puntajes WHERE id_materia='2'")
+			->with("SELECT puntajes.id_usuario, usuario.nombre, puntajes.id_materia, puntajes.fecha, puntajes.dificultad, puntajes.puntaje, puntajes.parejas_encontradas FROM puntajes INNER JOIN usuario ON puntajes.id_usuario = usuario.id WHERE puntajes.id_materia='2' ORDER BY puntajes.puntaje DESC, puntajes.fecha ASC")
 			->willReturn([
 				[
 					'id_usuario' => 1,
+					'nombre' => 'Raul',
 					'id_materia' => 2,
 					'fecha' => '2026-05-04',
 					'dificultad' => 'facil',
