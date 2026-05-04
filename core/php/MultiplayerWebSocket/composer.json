@@ -1,0 +1,11 @@
+{
+    
+    "require": {
+        "cboden/ratchet": "^0.3.4"
+    },
+    "autoload": {
+        "classmap": [
+            "Sockets/myWebSocket.php"
+        ]
+    }
+}

@@ -1,0 +1,58 @@
+<script src="../javascript/Menu/TeachersMenuUsers.js"></script>
+<div id="divStatus"></div>
+
+<!-- Trigger the modal with a button -->
+<p><a id="addForm" class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#modalUser"
+      title="Agregar nuevo usuario">
+    <i class="fa fa-plus-circle fa-4x" aria-hidden="true"></i>
+</a>
+</p>
+
+<!-- ------------------------------- -->
+
+<div class="center-block">
+    <p id="butonUsers"><button class="btn btn-primary btn-lg"  type="button" onclick="getListUsers()">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+        Ver todas los usuarios
+    </button>
+    </p>
+
+    <table class = 'table table-striped' id="tableUsers"></table>
+</div>
+
+
+
+<!-- Modal -->
+<div id="modalUser" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Agregar nuevo usuario</h4>
+            </div>
+            <div class="modal-body">
+                <form  role="form" id="userRegistrationForm">
+                    <p>Ingresa los datos del usuario </p>
+                    <label for="nameUserText">Nombre del usuario:</label>
+                    <input type='text' class="form-control" id="nameUserText" value="" required/><br/>
+
+                    <label for="passwordUserText">Contraseña del usuario:</label>
+                    <input type="text" class="form-control" id="passwordUserText"><br/>
+                    <select class="form-control" id="UserType">
+                        <option  value="Usuario">Usuario</option>
+                        <option  value="Administrador">Administrador</option>
+                    </select><br/><br/><br/>
+
+
+                    <p><input id="saveUser" class="btn btn-default" type="button" value="Save" onclick="addUser()"/></p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

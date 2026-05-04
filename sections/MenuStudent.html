@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Menu</title>
+        <script src="../lib/jquery/jquery-1.11.3.min.js"></script>
+        <script src="../javascript/VerifySession.js"></script>
+        <script src="../javascript/menu_alumno.js"></script>
+        <link href="../lib/awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link rel="icon" href="../resources/tab_logo/my_logo.png">
+        <link  rel="stylesheet" href="../css/custom.css"/>
+        <link  rel="stylesheet" href="../css/menu_alumno.css"/>
+
+
+    </head>
+
+    <body>
+        <div class="container-fluid">
+
+            <img id="logo" src="../img/logo.png" class="">
+
+            <div class="col-sm-offset-3 col-sm-6">
+                <div id="panel-menu" class="panel">
+                    <div class="panel-body">
+                        <h1>¡Bienvenido de nuevo!</h1>
+                        <form action="juego.html" method="GET" class="form">
+                            <div class="form-group form-inline">
+                                <label for="dificultad">Dificultad</label>
+                                <select name="dif" id="dificultad" class="form-control">
+                                    <option value="facil">Fácil</option>
+                                    <option value="medio">Medio</option>
+                                    <option value="dificil">Difícil</option>
+                                </select>
+                                <label for="materia">Materia</label>
+                                <select name="mat" id="materia" class="form-control">
+                                    <!--<option value="1">SEMAT</option>-->
+                                    <!--<option value="2">Requisitos</option>-->
+                                    <!--<option value="3">Fundamentos de Ingeniría de Software</option>-->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-lg right"  type="submit">
+                                    <i class="fa fa-gamepad" aria-hidden="true"></i>
+                                    Jugar a Memosoft
+                                </button>
+                            </div>
+                        </form>
+                        <!-- <p>
+                            <button class="btn btn-lg" type="button">
+                                <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>
+                                Puntajes
+                            </button>
+                        </p> -->
+                        <p>
+                            <button class="btn btn-primary btn-lg" type="button" id="close">
+                                <i class="fa fa-sign-out"></i>
+                                Salir
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

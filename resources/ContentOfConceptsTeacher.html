@@ -1,0 +1,61 @@
+<script src="../javascript/Menu/LoadExcelFile.js"></script>
+
+<div id="divStatus">&emsp13;</div>
+
+<!-- Trigger the modal with a button -->
+<p><a id="addForm" class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#modalConcept">
+    <i class="fa fa-plus-circle fa-4x" aria-hidden="true"></i>
+</a>
+</p>
+<!-- ------------------------------- -->
+
+<div id="fileForm" class="form-control">
+    <p>Cargar Archivo Excel</p>
+    <form><input type="file" name="file" id="file" accept=".xls"></form>
+</div>
+
+<div class="center-block">
+    <p id="buttonConcepts"><button class="btn btn-primary btn-lg"  type="button" onclick="getListCouples()">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+        Ver todos los conceptos
+    </button>
+    </p>
+    <table class = 'table table-striped' id="tableConcepts"></table>
+</div>
+
+
+<!-- Modal -->
+<div id="modalConcept" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Agregar nuevo concepto</h4>
+            </div>
+            <div class="modal-body">
+                <form  role="form" id="ContceptsForm">
+                    <p>Ingrese los datos </p>
+                    <label for="ConceptTxt">Concepto:</label>
+                    <input type='text' class="form-control" id="ConceptTxt" value="" required/><br/>
+                    <label for="definitionTxt">Escribe la definicion</label> <br/>
+                    <textarea id="definitionTxt" rows="4" cols="50"></textarea>
+                    <br/><br/>
+
+                    <select class="form-control" id="mattersList">
+                        <option  value="none">Elija una materia</option>
+                    </select>
+
+                    <br/><br/>
+                    <p><input id="saveConcept" class="btn btn-default" type="button" value="Save" onclick="addCouple()"/></p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
