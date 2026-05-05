@@ -71,8 +71,14 @@ class PuntajesManajer {
         }
     }
 
+    /**
+     * Mantenimiento realizado por: Raúl Nahuat
+     * Descripción: Se agregó el nombre del usuario a la consulta para que se pueda mostrar en la vista de ranking.
+     * Tipo de mantenimiento: Correctivo
+     * línea modificada: $query = "SELECT puntajes.id_usuario, usuario..."
+     */
     public function getAllPuntajeForMateria($idMateria) {
-        $query = "SELECT * FROM puntajes WHERE id_materia='$idMateria'";
+        $query = "SELECT puntajes.id_usuario, usuario.nombre, puntajes.id_materia, puntajes.fecha, puntajes.dificultad, puntajes.puntaje, puntajes.parejas_encontradas FROM puntajes INNER JOIN usuario ON puntajes.id_usuario = usuario.id WHERE puntajes.id_materia='$idMateria' ORDER BY puntajes.puntaje DESC, puntajes.fecha ASC";
 
         $resultado = $this->dbManager->realizeQuery($query);
 

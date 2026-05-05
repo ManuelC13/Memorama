@@ -338,15 +338,24 @@ function mostrarModal() {
         keyboard: false
     });
 
-    enviarDatosPuntaje();
-
-    $("#modal-mensaje").modal('show');
+    /**
+     * Mantenimiento realizado por: Raúl Nahuat
+     * Descripción: Se agregó la función para enviar el puntaje al servidor y cargar el ranking de puntajes antes de mostrar el modal.
+     * Se conserva el guardado original y, después, se consulta el ranking ya existente para mapear en la tabla.
+     * Tipo de mantenimiento: Correctivo
+     */
+    enviarDatosPuntaje().always(function() {
+        cargarRankingPuntajes().always(function() {
+            $("#modal-mensaje").modal('show');
+        });
+    });
 }
+
 
 function enviarDatosPuntaje() {
     //var usuario = $("#nombre-jugador").text();
     var puntaje = $("#puntaje").val();
-    $.get("../core/php/IngresarPuntaje.php", {
+    return $.get("../core/php/IngresarPuntaje.php", {
         idUsuario: idUsuario,
         idMateria: materia,
         dificultad: dificultad,
@@ -354,6 +363,33 @@ function enviarDatosPuntaje() {
         parejasEncontradas: 9 - cartas.length/2
     }).done(function(data) {
 
+    });
+}
+
+/**
+ * Mantenimiento realizado por: Raúl Nahuat
+ * Descripción: Se agregó la función para cargar el ranking de puntajes desde el servidor y mostrarlo en la tabla del modal. 
+ * Se reutilizó el dispatcher existente de puntajes por materia para obtener nombre y score, y se mapea en la tabla del modal.
+ * Tipo de mantenimiento: Correctivo
+ */
+function cargarRankingPuntajes() {
+    var $tabla = $("#mejores-puntajes tbody");
+    $tabla.empty();
+
+    //Se reutilizó el dispatcher existente de puntajes por materia para obtener nombre y score.
+    return $.get("../core/php/PuntajeDispatcher.php", {
+        tipo: 2,
+        idMateria: materia
+    }).done(function(data) {
+        var puntajes = typeof data === "string" ? $.parseJSON(data) : data;
+
+        if (!puntajes || !puntajes.length) {
+            return;
+        }
+
+        for (var i = 0; i < puntajes.length; i++) {
+            $tabla.append("<tr><td>" + puntajes[i].nombre + "</td><td>" + puntajes[i].puntaje + "</td></tr>");
+        }
     });
 }
 
