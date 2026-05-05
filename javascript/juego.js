@@ -37,6 +37,23 @@ $(document).ready(function() {
     pedirDatos(materia);
     iniciarContador(tiempo);
 
+    // ---- Listeners del botón de pausa y del modal de pausa ----
+    $("#btn-pausa").click(function() {
+        pausarJuego();
+    });
+
+    $("#pausa-reanudar").click(function() {
+        reanudarJuego();
+    });
+
+    $("#pausa-reiniciar").click(function() {
+        $("#modal-pausa").modal("hide");
+        reiniciarJuego();
+    });
+
+    $("#pausa-salir").click(function() {
+        salirJuego();
+    });
 
 });
 
@@ -44,6 +61,42 @@ var dificultad;
 var idUsuario;
 var materia;
 var cartas = [];
+var enPausa = false;
+tiempoActual = 0;
+
+// ---- Pausar, reanudar y reiniciar ----
+
+function pausarJuego() {
+    if (enPausa) return;
+    enPausa = true;
+    clearInterval(intervaloContador);
+    bloquearCartas();
+    $("#btn-pausa").prop("disabled", true);
+    $("#modal-pausa").modal({
+        backdrop: "static",
+        keyboard: false
+    });
+    $("#modal-pausa").modal("show");
+}
+
+function reanudarJuego() {
+    $("#modal-pausa").modal("hide");
+    enPausa = false;
+    $("#btn-pausa").prop("disabled", false);
+    // Retomar el contador con el tiempo que quedaba
+    tiempoActual = parseInt($("#timer").text());
+    iniciarContador(tiempoActual);
+    // Solo desbloquear si no hay pregunta pendiente
+    if ($("#pregunta-correctos").is(":hidden")) {
+        desbloquearCartas();
+    }
+}
+
+function reiniciarJuego() {
+    location.reload();
+}
+
+// ---- Lógica original del juego ----
 
 function pedirDatos(materia) {
     $.get("../core/php/ParejasJuegoDispatcher.php", {idmateria: materia}).done(function(data) {
@@ -153,7 +206,7 @@ function confirmarRespuesta(respuesta, caso) {
         divResultado.toggleClass("alert alert-success", true);
 
     } else {
-        console.log("Inorrecto");
+        console.log("Incorrecto");
         divResultado.text("Incorrecto");
         divResultado.show(1000);
         divResultado.toggleClass("alert alert-danger", true);
