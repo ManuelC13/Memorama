@@ -1,11 +1,16 @@
 $(document).ready(function() {
 
     //Ver nombre del jugador con sesion iniciada
-    $.get("../core/php/VerifyUserName.php").done(function(data) {
-        var usuario = $.parseJSON(data);
-        $("#nombre-jugador").text(usuario[0].nombre);
-        idUsuario = usuario[0].id;
-    });
+    $.get("../core/php/VerifyUserName.php")
+        .done(function(data) {
+            var usuario = $.parseJSON(data);
+            $("#nombre-jugador").text(usuario[0].nombre);
+            idUsuario = usuario[0].id;
+        })
+        .fail(function() {
+            // ── MR-04: Error al obtener nombre del jugador ─────────────
+            Toast.warning("No se pudo cargar tu información de usuario. Algunos datos pueden no mostrarse.");
+        });
 
     $("#pregunta-correctos").hide();
     $("#puntaje").val("0");
@@ -99,21 +104,40 @@ function reiniciarJuego() {
 // ---- Lógica original del juego ----
 
 function pedirDatos(materia) {
-    $.get("../core/php/ParejasJuegoDispatcher.php", {idmateria: materia}).done(function(data) {
-        if (!data) {
-            //No hay datos
-            salirJuego();
-        }
+    $.get("../core/php/ParejasJuegoDispatcher.php", {idmateria: materia})
+        .done(function(data) {
+            if (!data) {
+                // ---- Sin datos disponibles para la materia ----
+                Toast.error("No hay pares de cartas disponibles para esta materia. Regresa al menú y elige otra.");
+                setTimeout(function() { salirJuego(); }, 3000);
+                return;
+            }
 
-        var datos = $.parseJSON(data);
+            var datos;
+            try {
+                datos = $.parseJSON(data);
+            } catch(e) {
+                // ---- Respuesta del servidor mal formada ----
+                Toast.error("Error al leer los datos del juego. Por favor, intenta de nuevo.");
+                setTimeout(function() { salirJuego(); }, 3000);
+                return;
+            }
 
-        if (datos.length < 9) {
-            //datos incompletos
-            salirJuego();
-        }
-        datos = revolver(datos);
-        procesarDatos(datos);
-    });
+            if (datos.length < 9) {
+                // ---- Datos insuficientes para armar el tablero ----
+                Toast.warning("Esta materia no tiene suficientes pares de cartas para iniciar el juego.");
+                setTimeout(function() { salirJuego(); }, 3000);
+                return;
+            }
+
+            datos = revolver(datos);
+            procesarDatos(datos);
+        })
+        .fail(function() {
+            // ---- Error de red al cargar las cartas ----
+            Toast.error("No se pudieron cargar las cartas. Verifica tu conexión e intenta de nuevo.");
+            setTimeout(function() { salirJuego(); }, 3000);
+        });
 }
 
 
@@ -407,6 +431,10 @@ function enviarDatosPuntaje() {
         parejasEncontradas: 9 - cartas.length/2
     }).done(function(data) {
 
+    })
+    .fail(function() {
+        // ---- Error al guardar el puntaje ----
+        Toast.warning("Tu puntaje no pudo guardarse en el servidor. El juego continuará normalmente.");
     });
 }
 
