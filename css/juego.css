@@ -240,3 +240,67 @@ body{
     background-color: #B71C1C;
     color: white;
 }
+/*
+* Mantenimiento adaptativo
+* Mantenedor: Raúl Nahuat
+* Medias queries para las pantallas pequeñas
+*/
+@media screen and (max-width: 1024px) {
+    .tablero-color {
+        padding: 12px;
+    }
+    #tablero {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        grid-gap: 14px;
+        align-items: start;
+        justify-items: center;
+    }
+    #tablero .col-sm-2,
+    #tablero .col-xs-12,
+    #tablero .col-md-2 {
+        float: none !important;
+        display: block !important;
+        width: auto !important;
+        margin: 0 !important;
+        box-sizing: border-box;
+    }
+    .carta {
+        width: 100% !important;
+        height: auto !important;
+    }
+    .img-carta {
+        width: 80%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .tablero-color {
+        padding: 8px;
+    }
+    #tablero {
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        grid-gap: 10px;
+    }
+    .carta {
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 auto;
+    }
+    .img-carta {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    #tablero {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        grid-gap: 8px;
+    }
+    .img-carta {
+        width: 95%;
+    }
+}
