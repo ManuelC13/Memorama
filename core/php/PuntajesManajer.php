@@ -7,14 +7,19 @@
  * Time: 07:09 PM
  */
 require_once("DataBaseManager.php");
+require_once("IDataBaseManager.php");
 
 class PuntajesManajer {
 
     private $dbManager;
     private static $_instance;
 
-    private function __construct() {
+    /*private function __construct() {
         $this->dbManager = DataBaseManager::getInstance();
+    }*/
+
+    public function __construct(IDataBaseManager $dbManager = null) {
+        $this->dbManager = $dbManager ?? DataBaseManager::getInstance();
     }
 
     public function __destruct() {
