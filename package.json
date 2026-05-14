@@ -1,0 +1,20 @@
+{
+  "name": "memorama_tests",
+  "version": "1.0.0",
+  "description": "Pruebas unitarias y de integración para Memosoft",
+  "scripts": {
+    "test": "jest --verbose",
+    "test:mr03": "jest --verbose mr03",
+    "test:mr04": "jest --verbose mr04"
+  },
+  "devDependencies": {
+    "jest": "*",
+    "jest-environment-jsdom": "^30.4.1"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
+  }
+}

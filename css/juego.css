@@ -170,10 +170,81 @@ body{
     border: #90BFD6;
 }
 
+/* ---- (MR 2026.3) Estilos para botones y modal relacionados con pausa del juego*/
+#btn-pausa {
+    background-color: #607D8B;
+    color: white;
+    border-color: #455A64;
+    font-size: 1em;
+    margin-top: 5px;
+}
+
+#btn-pausa:hover {
+    background-color: #455A64;
+    color: white;
+    border-color: #37474F;
+}
+
+#btn-pausa:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#modal-pausa .modal-header {
+    background-color: #455A64;
+    color: white;
+    border-radius: 4px 4px 0 0;
+}
+
+#modal-pausa .modal-header .modal-title {
+    color: white;
+}
+
+#modal-pausa .modal-body {
+    background-color: #ECEFF1;
+    padding: 25px;
+}
+
+.btn-reanudar {
+    background-color: #388E3C;
+    color: white;
+    border-color: #2E7D32;
+    font-size: 1.1em;
+}
+
+.btn-reanudar:hover {
+    background-color: #2E7D32;
+    color: white;
+}
+
+.btn-reiniciar {
+    background-color: #F57C00;
+    color: white;
+    border-color: #E65100;
+    font-size: 1.1em;
+}
+
+.btn-reiniciar:hover {
+    background-color: #E65100;
+    color: white;
+}
+
+.btn-salir {
+    background-color: #C62828;
+    color: white;
+    border-color: #B71C1C;
+    font-size: 1.1em;
+}
+
+.btn-salir:hover {
+    background-color: #B71C1C;
+    color: white;
+}
+
 /*
 * Mantenimiento adaptativo
 * Mantenedor: Raúl Nahuat
-* Medias queries para las pantallas pequeñas
+* Medias queries para pantallas pequeñas
 */
 @media screen and (max-width: 1024px) {
     .tablero-color {

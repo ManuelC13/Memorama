@@ -1,11 +1,20 @@
 $(document).ready(function() {
 
     //Ver nombre del jugador con sesion iniciada
-    $.get("../core/php/VerifyUserName.php").done(function(data) {
-        var usuario = $.parseJSON(data);
-        $("#nombre-jugador").text(usuario[0].nombre);
-        idUsuario = usuario[0].id;
-    });
+    $.get("../core/php/VerifyUserName.php")
+        .done(function(data) {
+            var usuario = $.parseJSON(data);
+            $("#nombre-jugador").text(usuario[0].nombre);
+            idUsuario = usuario[0].id;
+        })
+        /*
+         * MR 2026.4 | Preventivo | Manuel Cupul
+         * Se agregó manejo del caso de fallo al cargar el nombre del usuario,
+         * mostrando un aviso en lugar de fallar silenciosamente.
+         */
+        .fail(function() {
+            Toast.warning("No se pudo cargar tu información de usuario. Algunos datos pueden no mostrarse.");
+        });
 
     $("#pregunta-correctos").hide();
     $("#puntaje").val("0");
@@ -37,6 +46,27 @@ $(document).ready(function() {
     pedirDatos(materia);
     iniciarContador(tiempo);
 
+    /*
+     * MR 2026.3 | Perfectivo | Manuel Cupul
+     * Se agregaron los listeners del botón de pausa y las opciones del modal
+     * (Reanudar, Reiniciar, Salir) para permitir controlar el flujo de la partida.
+     */
+    $("#btn-pausa").click(function() {
+        pausarJuego();
+    });
+
+    $("#pausa-reanudar").click(function() {
+        reanudarJuego();
+    });
+
+    $("#pausa-reiniciar").click(function() {
+        $("#modal-pausa").modal("hide");
+        reiniciarJuego();
+    });
+
+    $("#pausa-salir").click(function() {
+        salirJuego();
+    });
 
 });
 
@@ -45,22 +75,84 @@ var idUsuario;
 var materia;
 var cartas = [];
 
-function pedirDatos(materia) {
-    $.get("../core/php/ParejasJuegoDispatcher.php", {idmateria: materia}).done(function(data) {
-        if (!data) {
-            //No hay datos
-            salirJuego();
-        }
+// MR 2026.3 | Perfectivo | Manuel Cupul — variables de estado para pausa
+var enPausa = false;
+tiempoActual = 0;
 
-        var datos = $.parseJSON(data);
-
-        if (datos.length < 9) {
-            //datos incompletos
-            salirJuego();
-        }
-        datos = revolver(datos);
-        procesarDatos(datos);
+/*
+ * MR 2026.3 | Perfectivo | Manuel Cupul
+ * Funciones de pausa, reanudación y reinicio de partida.
+ * pausarJuego: detiene el contador, bloquea cartas y muestra el modal.
+ * reanudarJuego: reanuda el contador desde el tiempo guardado y desbloquea cartas.
+ * reiniciarJuego: recarga la página para empezar una nueva partida.
+ */
+function pausarJuego() {
+    if (enPausa) return;
+    enPausa = true;
+    clearInterval(intervaloContador);
+    bloquearCartas();
+    $("#btn-pausa").prop("disabled", true);
+    $("#modal-pausa").modal({
+        backdrop: "static",
+        keyboard: false
     });
+    $("#modal-pausa").modal("show");
+}
+
+function reanudarJuego() {
+    $("#modal-pausa").modal("hide");
+    enPausa = false;
+    $("#btn-pausa").prop("disabled", false);
+    // Retomar el contador con el tiempo que quedaba
+    tiempoActual = parseInt($("#timer").text());
+    iniciarContador(tiempoActual);
+    // Solo desbloquear si no hay pregunta pendiente
+    if ($("#pregunta-correctos").is(":hidden")) {
+        desbloquearCartas();
+    }
+}
+
+function reiniciarJuego() {
+    location.reload();
+}
+
+// Lógica original del juego
+
+function pedirDatos(materia) {
+    $.get("../core/php/ParejasJuegoDispatcher.php", {idmateria: materia})
+        .done(function(data) {
+            if (!data) {
+                // MR 2026.4 | Preventivo | Manuel Cupul — sin datos para la materia
+                Toast.error("No hay pares de cartas disponibles para esta materia. Regresa al menú y elige otra.");
+                setTimeout(function() { salirJuego(); }, 3000);
+                return;
+            }
+
+            var datos;
+            try {
+                datos = $.parseJSON(data);
+            } catch(e) {
+                // MR 2026.4 | Preventivo | Manuel Cupul — respuesta no parseable
+                Toast.error("Error al leer los datos del juego. Por favor, intenta de nuevo.");
+                setTimeout(function() { salirJuego(); }, 3000);
+                return;
+            }
+
+            if (datos.length < 9) {
+                // MR 2026.4 | Preventivo | Manuel Cupul — pares insuficientes
+                Toast.warning("Esta materia no tiene suficientes pares de cartas para iniciar el juego.");
+                setTimeout(function() { salirJuego(); }, 3000);
+                return;
+            }
+
+            datos = revolver(datos);
+            procesarDatos(datos);
+        })
+        .fail(function() {
+            // MR 2026.4 | Preventivo | Manuel Cupul — error de conexión al cargar cartas
+            Toast.error("No se pudieron cargar las cartas. Verifica tu conexión e intenta de nuevo.");
+            setTimeout(function() { salirJuego(); }, 3000);
+        });
 }
 
 
@@ -153,7 +245,7 @@ function confirmarRespuesta(respuesta, caso) {
         divResultado.toggleClass("alert alert-success", true);
 
     } else {
-        console.log("Inorrecto");
+        console.log("Incorrecto");
         divResultado.text("Incorrecto");
         divResultado.show(1000);
         divResultado.toggleClass("alert alert-danger", true);
@@ -363,6 +455,10 @@ function enviarDatosPuntaje() {
         parejasEncontradas: 9 - cartas.length/2
     }).done(function(data) {
 
+    })
+    .fail(function() {
+        // MR 2026.4 | Preventivo | Manuel Cupul — el puntaje no se guardó en servidor
+        Toast.warning("Tu puntaje no pudo guardarse en el servidor. El juego continuará normalmente.");
     });
 }
 

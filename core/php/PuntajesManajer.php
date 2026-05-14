@@ -16,9 +16,9 @@ class PuntajesManajer {
 
     /*
     private function __construct() {
+    /*private function __construct() {
         $this->dbManager = DataBaseManager::getInstance();
-    }
-    */
+    }*/
 
     /*
      * Mantenimiento realizado por: Raúl Nahuat y Manuel Cupul

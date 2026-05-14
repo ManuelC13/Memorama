@@ -34,6 +34,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <script type="text/javascript" src="../lib/jqueryui/jquery-ui.js"></script>
         <script src="../lib/bootstrap/js/bootstrap.js"></script>
         <script src="../javascript/VerifySession.js"></script>
+        <script src="../javascript/toast.js"></script>
 
 
 
@@ -57,6 +58,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                     <label for="puntaje">Puntaje</label>
                     <input type="number" class="form-control" id="puntaje" disabled="disabled">
 
+                    <div class="text-center" style="margin-top: 15px;">
+                        <button id="btn-pausa" class="btn btn-pausa btn-block">&#9646;&#9646; Pausar</button>
+                    </div>
 
 
 
@@ -89,6 +93,32 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
         </div>
 
+
+        <!-- Modal de Pausa -->
+        <div id="modal-pausa" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h2 class="modal-title text-center">Juego en Pausa</h2>
+                    </div>
+
+                    <div class="modal-body text-center">
+                        <p>El juego está detenido.</p>
+                        <button id="pausa-reanudar" class="btn btn-reanudar btn-block" style="margin-bottom: 10px;">
+                            &#9654; Reanudar
+                        </button>
+                        <button id="pausa-reiniciar" class="btn btn-reiniciar btn-block" style="margin-bottom: 10px;">
+                            &#8635; Reiniciar
+                        </button>
+                        <button id="pausa-salir" class="btn btn-salir btn-block">
+                            &#10006; Salir
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
         <div id="modal-mensaje" class="modal fade">
             <div class="modal-dialog modal-lg">

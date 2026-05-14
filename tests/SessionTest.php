@@ -22,21 +22,30 @@ class SessionTest extends TestCase
 {
 	private Session $session;
 
-	protected function setUp(): void
-	{
-		$this->session = new Session();
-	}
+	protected function setUp(): void {
+        // Reinicia sesión limpia
+        if(session_status() === PHP_SESSION_ACTIVE){
+            session_destroy();
+        }
 
-	protected function tearDown(): void
-	{
-		$this->session->session_finish();
-		parent::tearDown();
-	}
+        $_SESSION = [];
 
-	// ========== PRUEBAS PARA set() ==========
+        $this->session = new Session();
+    }
 
+	protected function tearDown(): void {
+        $_SESSION = [];
+
+        if(session_status() === PHP_SESSION_ACTIVE){
+            session_destroy();
+        }
+    }
+
+    // ---------------------------------------------
+    // TEST: #6
+    // TESTS POSITIVO: set()
+    // ---------------------------------------------
 	/**
-	 * PRUEBA UNITARIA POSITIVA - set()
 	 * Verifica que set() almacene correctamente una variable en la sesión
 	 */
 	public function testSetAlmacenaVariableEnSesion()
@@ -46,8 +55,11 @@ class SessionTest extends TestCase
 		$this->assertSame('Juan', $_SESSION['usuario']);
 	}
 
+    // ---------------------------------------------
+    // TEST: #6
+    // TESTS NEGATIVO: set()
+    // ---------------------------------------------
 	/**
-	 * PRUEBA UNITARIA NEGATIVA - set()
 	 * Verifica que set() almacene correctamente un valor falsy (0)
 	 */
 	public function testSetAlmacenaCeroComoValor()
@@ -57,4 +69,72 @@ class SessionTest extends TestCase
 		$this->assertSame(0, $_SESSION['intentos']);
 		$this->assertNotNull($_SESSION['intentos']);
 	}
+
+    // ---------------------------------------------
+    // TEST: #7
+    // TESTS POSITIVO: delete_var()
+    // ---------------------------------------------
+	/**
+	 * Verifica que delete_var() elimine correctamente una variable de la sesión
+	 */
+	public function testDeleteVarPositive() {
+        // Arrange
+        $this->session->set("user", "Juan");
+
+        // Verifica que exista
+        $this->assertEquals(
+            "Juan",
+            $this->session->get("user")
+        );
+
+        // Act
+        $this->session->delete_var("user");
+
+        // Assert
+        $this->assertFalse(
+            $this->session->get("user")
+        );
+    }
+
+    // ---------------------------------------------
+    // TEST: #7
+    // TESTS POSITIVO: delete_var()
+    // ---------------------------------------------
+    /**
+     * Verifica que delete_var() no cause errores al intentar eliminar una variable que no existe
+     */
+    public function testDeleteVarNegative() {
+        // Act
+        $this->session->delete_var("fake");
+
+        // Assert
+        $this->assertFalse(
+            $this->session->get("fake")
+        );
+    }
+
+
+    // ---------------------------------------------
+    // TEST: #8
+    // TESTS POSITIVO: session_finish()
+    // ---------------------------------------------
+    /**
+    * Verifica que session_finish() limpie correctamente todas las variables de la sesión
+    */
+    public function testSessionFinishPositive() {
+        // Arrange
+        $this->session->set("user", "Juan");
+        $this->session->set("rol", "admin");
+
+        $this->assertEquals(
+            "Juan",
+            $this->session->get("user")
+        );
+
+        // Act
+        $this->session->session_finish();
+
+        // Assert
+        $this->assertEmpty($_SESSION);
+    }
 }
