@@ -7,14 +7,27 @@
  * Time: 07:09 PM
  */
 require_once("DataBaseManager.php");
+require_once("IDataBaseManager.php");
 
 class PuntajesManajer {
 
     private $dbManager;
     private static $_instance;
 
+    /*
     private function __construct() {
         $this->dbManager = DataBaseManager::getInstance();
+    }
+    */
+
+    /*
+     * Mantenimiento realizado por: Raúl Nahuat y Manuel Cupul
+     * Descripción: Se agregó un constructor que permite inyectar una instancia de IDataBaseManager para facilitar las pruebas unitarias.
+     * Tipo de mantenimiento: Correctivo
+     * línea modificada: Se agregó el método __construct(IDataBaseManager $dbManager = null)
+     */
+    public function __construct(IDataBaseManager $dbManager = null) {
+        $this->dbManager = $dbManager ?? DataBaseManager::getInstance();
     }
 
     public function __destruct() {
