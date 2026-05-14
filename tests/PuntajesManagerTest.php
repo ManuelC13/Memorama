@@ -25,7 +25,7 @@ class PuntajesManagerTest extends TestCase {
 
     // ---------------------------------------------
     // TEST: #1
-    // TESTS POSITIVO: deletePuntaje
+    // TEST POSITIVO: deletePuntaje
     // ---------------------------------------------
 	/**
 	 * Verifica que deletePuntaje ejecute correctamente la consulta DELETE
@@ -61,7 +61,7 @@ class PuntajesManagerTest extends TestCase {
 
     // ---------------------------------------------
     // TEST: #1
-    // TESTS NEGATIVO: deletePuntaje
+    // TEST NEGATIVO: deletePuntaje
     // ---------------------------------------------
 	/**
 	 * Verifica que deletePuntaje retorne string vacío cuando la base de datos retorna error
@@ -97,7 +97,7 @@ class PuntajesManagerTest extends TestCase {
 
     // ---------------------------------------------
     // TEST: #2
-    // TESTS POSITIVO: getAllPuntajeForUsuario
+    // TEST POSITIVO: getAllPuntajeForUsuario
     // ---------------------------------------------
 	/**
 	 * Verifica que la función retorne un JSON codificado cuando la consulta retorna resultados
@@ -141,7 +141,7 @@ class PuntajesManagerTest extends TestCase {
 
     // ---------------------------------------------
     // TEST: #2
-    // TESTS NEGATIVO: getAllPuntajeForUsuario
+    // TEST NEGATIVO: getAllPuntajeForUsuario
     // ---------------------------------------------
 	/**
 	 * Verifica que la función retorne mensaje de tabla vacía cuando no hay resultados
@@ -163,7 +163,7 @@ class PuntajesManagerTest extends TestCase {
 
     // ---------------------------------------------
     // TEST: #3
-    // TESTS POSITIVO: getAllPuntajeForUsuarioAndMateria
+    // TEST POSITIVO: getAllPuntajeForUsuarioAndMateria
     // ---------------------------------------------
 	/**
 	 * Verifica que la función retorne JSON codificado cuando existen puntajes para usuario y materia
@@ -207,7 +207,7 @@ class PuntajesManagerTest extends TestCase {
 
     // ---------------------------------------------
     // TEST: #3
-    // TESTS NEGATIVO: getAllPuntajeForUsuarioAndMateria
+    // TEST NEGATIVO: getAllPuntajeForUsuarioAndMateria
     // ---------------------------------------------
 	/**
 	 * Verifica que la función retorne mensaje de tabla vacía cuando no existen puntajes
@@ -229,7 +229,7 @@ class PuntajesManagerTest extends TestCase {
 
     // ---------------------------------------------
     // TEST: #4
-    // TESTS POSITIVO: getAllPuntajeForMateriaAndDificultad
+    // TEST POSITIVO: getAllPuntajeForMateriaAndDificultad
     // ---------------------------------------------
     /**
      * Verifica que el método retorne un JSON
@@ -278,7 +278,7 @@ class PuntajesManagerTest extends TestCase {
 
     // ---------------------------------------------
     // TEST: #4
-    // TESTS NEGATIVO: getAllPuntajeForMateriaAndDificultad
+    // TEST NEGATIVO: getAllPuntajeForMateriaAndDificultad
     // ---------------------------------------------
     /**
      * Verifica que el método retorne el mensaje
@@ -309,7 +309,7 @@ class PuntajesManagerTest extends TestCase {
 
     // ------------------------------------------------------
     // TEST: #5
-    // TESTS POSITIVO: getAllPuntajeForUsuarioAndMateriaAndDificultad
+    // TEST POSITIVO: getAllPuntajeForUsuarioAndMateriaAndDificultad
     // ------------------------------------------------------
     /**
      * Verifica que el método retorne un JSON
@@ -365,7 +365,7 @@ class PuntajesManagerTest extends TestCase {
 
     // ------------------------------------------------------
     // TEST: #5
-    // TESTS NEGATIVO: getAllPuntajeForUsuarioAndMateriaAndDificultad
+    // TEST NEGATIVO: getAllPuntajeForUsuarioAndMateriaAndDificultad
     // ------------------------------------------------------
     /**
      * Verifica que el método retorne un mensaje

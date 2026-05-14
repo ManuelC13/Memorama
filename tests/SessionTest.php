@@ -43,7 +43,7 @@ class SessionTest extends TestCase
 
     // ---------------------------------------------
     // TEST: #6
-    // TESTS POSITIVO: set()
+    // TEST POSITIVO: set()
     // ---------------------------------------------
 	/**
 	 * Verifica que set() almacene correctamente una variable en la sesión
@@ -57,7 +57,7 @@ class SessionTest extends TestCase
 
     // ---------------------------------------------
     // TEST: #6
-    // TESTS NEGATIVO: set()
+    // TEST NEGATIVO: set()
     // ---------------------------------------------
 	/**
 	 * Verifica que set() almacene correctamente un valor falsy (0)
@@ -72,7 +72,7 @@ class SessionTest extends TestCase
 
     // ---------------------------------------------
     // TEST: #7
-    // TESTS POSITIVO: delete_var()
+    // TEST POSITIVO: delete_var()
     // ---------------------------------------------
 	/**
 	 * Verifica que delete_var() elimine correctamente una variable de la sesión
@@ -98,7 +98,7 @@ class SessionTest extends TestCase
 
     // ---------------------------------------------
     // TEST: #7
-    // TESTS POSITIVO: delete_var()
+    // TEST NEGATIVO: delete_var()
     // ---------------------------------------------
     /**
      * Verifica que delete_var() no cause errores al intentar eliminar una variable que no existe
@@ -116,7 +116,7 @@ class SessionTest extends TestCase
 
     // ---------------------------------------------
     // TEST: #8
-    // TESTS POSITIVO: session_finish()
+    // TEST POSITIVO: session_finish()
     // ---------------------------------------------
     /**
     * Verifica que session_finish() limpie correctamente todas las variables de la sesión
