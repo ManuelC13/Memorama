@@ -196,6 +196,6 @@ describe("sonPareja()", () => {
     });
 
     test("[+] prueba de humo del pipeline", () => {
-        expect(true).toBe(true);
+        expect(true).toBe(false);
     });
 });
