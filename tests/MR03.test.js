@@ -195,4 +195,7 @@ describe("sonPareja()", () => {
         expect(sonPareja("3fotosíntesis", "")).toBe(false);
     });
 
+    test("[+] prueba de humo del pipeline", () => {
+        expect(true).toBe(true);
+    });
 });
