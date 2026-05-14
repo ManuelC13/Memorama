@@ -2,8 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . "/../core/php/UserManager.php";
-require_once __DIR__ . "/../core/php/IDataBaseManager.php";
+require_once __DIR__ . "/../core/php/userManager.php";
 
 class UserManagerTest extends TestCase
 {
