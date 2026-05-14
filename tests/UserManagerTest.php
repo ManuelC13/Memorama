@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . "/../core/php/userManager.php";
+require_once __DIR__ . "/../core/php/IDataBaseManager.php";
 
 class UserManagerTest extends TestCase
 {
@@ -14,6 +15,9 @@ class UserManagerTest extends TestCase
     {
         // Crear un mock de DataBaseManager
         $this->mockDbManager = $this->createMock('IDataBaseManager');
+        
+        // Configurar el método close() para evitar errores en el destructor
+        $this->mockDbManager->method('close')->willReturn(null);
         
         // Instanciar UserManager con el mock
         $this->userManager = UserManager::getInstanceWithDependencies($this->mockDbManager);

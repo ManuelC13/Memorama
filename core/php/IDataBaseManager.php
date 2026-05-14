@@ -4,4 +4,5 @@ interface IDataBaseManager {
     public function realizeQuery($query);
     public function insertQuery($query);
     public function realizeQueryPrepared($query, $params): ?array;
+    public function close();
 }
