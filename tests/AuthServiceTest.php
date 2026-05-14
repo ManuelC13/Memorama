@@ -2,9 +2,9 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . "\..\core\php\IDataBaseManager.php";
-require_once __DIR__ . "\..\core\php\ISession.php";
-require_once __DIR__ . "\..\core\php\AuthService.php";
+require_once __DIR__ . "/../core/php/IDataBaseManager.php";
+require_once __DIR__ . "/../core/php/ISession.php";
+require_once __DIR__ . "/../core/php/AuthService.php";
 
 class AuthServiceTest extends TestCase {
 
