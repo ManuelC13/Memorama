@@ -12,8 +12,8 @@ class UserManager{
     private $dbManager;
     private static $_instance;
 
-    private function __construct(){
-        $this->dbManager = DataBaseManager::getInstance();
+    private function __construct($dbManager = null){
+        $this->dbManager = $dbManager ?? DataBaseManager::getInstance();
     }
 
     public function __destruct(){
@@ -26,6 +26,10 @@ class UserManager{
             self::$_instance = new UserManager();
         }
         return self::$_instance;
+    }
+
+    public static function getInstanceWithDependencies($dbManager){
+        return new UserManager($dbManager);
     }
 
     public function setUser($name, $password, $tipo){
