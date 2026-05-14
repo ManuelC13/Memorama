@@ -2,21 +2,17 @@
  * Created by Andre on 12/03/2016.
  */
 
-/**
- * Cambios respecto a la versión original:
- *  - Campos vacíos: toast de advertencia en lugar de fallo silencioso
- *  - Credenciales incorrectas: toast de error en lugar de cargar responseLogin.html
- *  - Error de servidor/red: toast de error en lugar de alert()
- *  - Error inesperado al parsear respuesta: toast de error en lugar de console.log silencioso
- */
-
 $(function(){
     $("#login").click(function(){
 
         var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
 
-        // ── Validación de campos vacíos ────────────────────────────────
+        /*
+         * MR 2026.4 | Preventivo | Manuel Cupul
+         * Validación de campos vacíos antes de hacer la petición al servidor.
+         * Antes no había validación: el login simplemente no respondía.
+         */
         if (username === "" && password === "") {
             Toast.warning("Por favor, ingresa tu usuario y contraseña.");
             return;
@@ -53,7 +49,11 @@ $(function(){
                 $("#loginResponse").html("");
                 $("#login").prop("disabled", false);
 
-                // ── Error de red o servidor ────────────────────────────
+                /*
+                * MR 2026.4 | Preventivo | Manuel Cupul
+                * Antes el error de red producía un alert() genérico.
+                * Ahora se diferencia entre timeout y error de servidor.
+                */
                 if (status === "timeout") {
                     Toast.error("La solicitud tardó demasiado. Verifica tu conexión e intenta de nuevo.");
                 } else {
@@ -78,17 +78,17 @@ function verifyUser(response){
             } else if (userResponse[0].type == teacher) {
                 location.href = "sections/MenuTeacher.html";
             } else {
-                // ── Tipo de usuario desconocido ────────────────────────
+                // MR 2026.4 | Preventivo | Manuel Cupul — tipo de usuario no reconocido
                 Toast.error("Tu cuenta no tiene un tipo de usuario válido. Contacta al administrador.");
             }
 
         } else {
-            // ── Credenciales incorrectas ───────────────────────────────
+            // MR 2026.4 | Preventivo | Manuel Cupul — credenciales incorrectas
             Toast.error("Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.");
         }
 
     } catch (e) {
-        // ── Respuesta inesperada del servidor ──────────────────────────
+        // MR 2026.4 | Preventivo | Manuel Cupul — respuesta inesperada del servidor
         console.error("Error al procesar la respuesta del servidor:", e);
         Toast.error("Ocurrió un error inesperado. Por favor, intenta de nuevo.");
     }

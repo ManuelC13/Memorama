@@ -1,16 +1,19 @@
 /**
- * toast.js — Módulo centralizado de notificaciones y manejo de errores
+ * Autor: Manuel Cupul
+ * Tipo de mantenimiento: Preventivo (MR 2026.4)
+ * Descripción: Módulo centralizado de notificaciones. Reemplaza los fallos
+ * silenciosos y alerts nativos del sistema por mensajes visuales
+ * comprensibles para el usuario.
  *
  * Uso:
- *   Toast.error("Mensaje de error");
- *   Toast.success("Operación exitosa");
- *   Toast.warning("Advertencia");
- *   Toast.info("Información");
+ *   Toast.error("Mensaje");   
+ *   Toast.success("Mensaje"); 
+ *   Toast.warning("Mensaje");
+ *   Toast.info("Mensaje");
  */
 
 var Toast = (function () {
 
-    // Tipos de toast con su color e ícono Bootstrap/Glyphicon
     var TIPOS = {
         error:   { clase: "toast-error",   icono: "glyphicon-exclamation-sign", duracion: 5000 },
         success: { clase: "toast-success", icono: "glyphicon-ok-circle",        duracion: 3000 },

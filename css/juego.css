@@ -170,7 +170,7 @@ body{
     border: #90BFD6;
 }
 
-/* ---- Botón y modal de pausa */
+/* ---- (MR 2026.3) Estilos para botones y modal relacionados con pausa del juego*/
 #btn-pausa {
     background-color: #607D8B;
     color: white;
@@ -240,10 +240,11 @@ body{
     background-color: #B71C1C;
     color: white;
 }
+
 /*
 * Mantenimiento adaptativo
 * Mantenedor: Raúl Nahuat
-* Medias queries para las pantallas pequeñas
+* Medias queries para pantallas pequeñas
 */
 @media screen and (max-width: 1024px) {
     .tablero-color {

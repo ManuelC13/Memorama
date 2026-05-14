@@ -2,7 +2,7 @@
 /**
  * Created by Raúl Nahuat.
  * User: Raúl Nahuat
- * Date: 05/05/202026
+ * Date: 05/05/2026
  * 
  * Descripción: Pruebas unitaria para verificar el estado de los puntajes.
  */

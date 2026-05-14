@@ -7,8 +7,12 @@ $(document).ready(function() {
             $("#nombre-jugador").text(usuario[0].nombre);
             idUsuario = usuario[0].id;
         })
+        /*
+         * MR 2026.4 | Preventivo | Manuel Cupul
+         * Se agregó manejo del caso de fallo al cargar el nombre del usuario,
+         * mostrando un aviso en lugar de fallar silenciosamente.
+         */
         .fail(function() {
-            // ── MR-04: Error al obtener nombre del jugador ─────────────
             Toast.warning("No se pudo cargar tu información de usuario. Algunos datos pueden no mostrarse.");
         });
 
@@ -42,7 +46,11 @@ $(document).ready(function() {
     pedirDatos(materia);
     iniciarContador(tiempo);
 
-    // ---- Listeners del botón de pausa y del modal de pausa ----
+    /*
+     * MR 2026.3 | Perfectivo | Manuel Cupul
+     * Se agregaron los listeners del botón de pausa y las opciones del modal
+     * (Reanudar, Reiniciar, Salir) para permitir controlar el flujo de la partida.
+     */
     $("#btn-pausa").click(function() {
         pausarJuego();
     });
@@ -66,11 +74,18 @@ var dificultad;
 var idUsuario;
 var materia;
 var cartas = [];
+
+// MR 2026.3 | Perfectivo | Manuel Cupul — variables de estado para pausa
 var enPausa = false;
 tiempoActual = 0;
 
-// ---- Pausar, reanudar y reiniciar ----
-
+/*
+ * MR 2026.3 | Perfectivo | Manuel Cupul
+ * Funciones de pausa, reanudación y reinicio de partida.
+ * pausarJuego: detiene el contador, bloquea cartas y muestra el modal.
+ * reanudarJuego: reanuda el contador desde el tiempo guardado y desbloquea cartas.
+ * reiniciarJuego: recarga la página para empezar una nueva partida.
+ */
 function pausarJuego() {
     if (enPausa) return;
     enPausa = true;
@@ -101,13 +116,13 @@ function reiniciarJuego() {
     location.reload();
 }
 
-// ---- Lógica original del juego ----
+// Lógica original del juego
 
 function pedirDatos(materia) {
     $.get("../core/php/ParejasJuegoDispatcher.php", {idmateria: materia})
         .done(function(data) {
             if (!data) {
-                // ---- Sin datos disponibles para la materia ----
+                // MR 2026.4 | Preventivo | Manuel Cupul — sin datos para la materia
                 Toast.error("No hay pares de cartas disponibles para esta materia. Regresa al menú y elige otra.");
                 setTimeout(function() { salirJuego(); }, 3000);
                 return;
@@ -117,14 +132,14 @@ function pedirDatos(materia) {
             try {
                 datos = $.parseJSON(data);
             } catch(e) {
-                // ---- Respuesta del servidor mal formada ----
+                // MR 2026.4 | Preventivo | Manuel Cupul — respuesta no parseable
                 Toast.error("Error al leer los datos del juego. Por favor, intenta de nuevo.");
                 setTimeout(function() { salirJuego(); }, 3000);
                 return;
             }
 
             if (datos.length < 9) {
-                // ---- Datos insuficientes para armar el tablero ----
+                // MR 2026.4 | Preventivo | Manuel Cupul — pares insuficientes
                 Toast.warning("Esta materia no tiene suficientes pares de cartas para iniciar el juego.");
                 setTimeout(function() { salirJuego(); }, 3000);
                 return;
@@ -134,7 +149,7 @@ function pedirDatos(materia) {
             procesarDatos(datos);
         })
         .fail(function() {
-            // ---- Error de red al cargar las cartas ----
+            // MR 2026.4 | Preventivo | Manuel Cupul — error de conexión al cargar cartas
             Toast.error("No se pudieron cargar las cartas. Verifica tu conexión e intenta de nuevo.");
             setTimeout(function() { salirJuego(); }, 3000);
         });
@@ -442,7 +457,7 @@ function enviarDatosPuntaje() {
 
     })
     .fail(function() {
-        // ---- Error al guardar el puntaje ----
+        // MR 2026.4 | Preventivo | Manuel Cupul — el puntaje no se guardó en servidor
         Toast.warning("Tu puntaje no pudo guardarse en el servidor. El juego continuará normalmente.");
     });
 }

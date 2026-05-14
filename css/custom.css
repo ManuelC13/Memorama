@@ -25,7 +25,7 @@ body{
     width: 27em;
 }
 
-/* ---- Estilos del módulo Toast ---- */
+/* ---- (MR 2026.4) Estilos del módulo Toast ---- */
 
 #toast-contenedor {
     position: fixed;
