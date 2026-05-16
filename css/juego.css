@@ -305,3 +305,11 @@ body{
         width: 95%;
     }
 }
+
+/* Centrado de la columna "Puntaje" en el modal de resultados */
+#modal-mensaje #mejores-puntajes th:nth-child(2),
+#modal-mensaje #mejores-puntajes td:nth-child(2) {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+/* Fin de mantenimiento adaptativo */
