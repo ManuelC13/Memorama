@@ -194,8 +194,4 @@ describe("sonPareja()", () => {
     test("[-] Retornar false cuando se compara con un ID vacío", () => {
         expect(sonPareja("3fotosíntesis", "")).toBe(false);
     });
-
-    test("[+] prueba de humo del pipeline", () => {
-        expect(true).toBe(false);
-    });
 });
