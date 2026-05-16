@@ -282,6 +282,30 @@ body{
     .tablero-color {
         padding: 8px;
     }
+
+    /*Mantenimiento Adaptativo: Se agregó para que la pregunta aparezca en la parte inferior de la pantalla
+    Por: Raúl Nahuat */
+    #resultado {
+        position: fixed;
+        left: 50%;
+        bottom: 104px;
+        transform: translateX(-50%);
+        width: calc(100% - 20px);
+        max-width: 520px;
+        z-index: 1056;
+        text-align: center;
+    }
+    #pregunta-correctos {
+        position: fixed;
+        left: 50%;
+        bottom: 12px;
+        transform: translateX(-50%);
+        width: calc(100% - 20px);
+        max-width: 520px;
+        margin: 0;
+        z-index: 1055;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
     #tablero {
         grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
         grid-gap: 10px;
@@ -297,6 +321,17 @@ body{
 }
 
 @media screen and (max-width: 320px) {
+
+    /*Mantenimiento Adaptativo: Se agregó para que la pregunta aparezca en la parte inferior de la pantalla
+    Por: Raúl Nahuat */
+    #resultado {
+        bottom: 96px;
+        width: calc(100% - 14px);
+    }
+    #pregunta-correctos {
+        width: calc(100% - 14px);
+        bottom: 8px;
+    }
     #tablero {
         grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
         grid-gap: 8px;

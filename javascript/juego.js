@@ -251,6 +251,12 @@ function confirmarRespuesta(respuesta, caso) {
         divResultado.toggleClass("alert alert-danger", true);
     }
 
+    // Ocultar el aviso automáticamente después de mostrarse (evita quedarse fijo)
+    setTimeout(function() {
+        divResultado.hide(500);
+        divResultado.removeClass("alert alert-success alert-danger");
+    }, 1600);
+
 
     /*
      * Casos:
